@@ -1,0 +1,5 @@
+Progresso ate agora:
+1º modulo feito(indice de autores)
+2º  90% do modulo feito(Estatisticas - falta balancear a arvore(AVL) mais umas cenas que possam faltar)
+3º Modulo( Grafos - Falta ver como é que isto funca-ir a net ver Grafos)
+1ª Query feita
