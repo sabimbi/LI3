@@ -16,7 +16,7 @@ char *tiraespacos(char *str);
 int parser_file(char *str);
 int numind(char *str);
 void reset_index();
-void maxminpublic(int yeat);
+void maxminpublic(int year);
 void trata_public(char *line);
 
 int getMaxAno();

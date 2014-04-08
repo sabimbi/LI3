@@ -59,11 +59,11 @@ void tratar_public(char *line){
     char *str;
     int c;
     
-    int i,n,ano,nomes;
+    int i,n,ano,nomes,coautores;
     
     
     
-    ano=nomes=0;
+    ano=nomes=coautores=0;
     
     
     str=strtok(line,",");
@@ -75,8 +75,9 @@ void tratar_public(char *line){
         ano=atoi(str);
         maxminpublic(ano);
         
-        inserirstats(ano,n);
+        inserirstats(ano,(n-1),(n-2));
   n=1;
+  
     }else{
        
         c=str[0];
@@ -85,10 +86,12 @@ void tratar_public(char *line){
         
         
         nomes++;
+        n++;
     }
     
     str=strtok(NULL,",");
-    n++;
+    
+    
     }
     setNomes(nomes);
 }

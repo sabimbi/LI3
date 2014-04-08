@@ -9,8 +9,54 @@
 static AutorPtr lista[27];
 static Indiceautores indice;
 
-
-
+int altura(AutorPtr a)
+{
+    if (a == NULL)
+        return 0;
+    return a->altura;
+}
+int max(int a, int b)
+{
+    return (a > b)? a : b;
+}
+AutorPtr rightRotate(AutorPtr y)
+{
+    AutorPtr x = y->left;
+    AutorPtr T2 = x->right;
+ 
+    
+    x->right = y;
+    y->left = T2;
+ 
+    
+    y->altura = max(altura(y->left), altura(y->right))+1;
+    x->altura = max(altura(x->left), altura(x->right))+1;
+ 
+    
+    return x;
+}
+AutorPtr leftRotate(AutorPtr x)
+{
+    AutorPtr y = x->right;
+    AutorPtr T2 = y->left;
+ 
+    
+    y->left = x;
+    x->right = T2;
+ 
+    
+    x->altura = max(altura(x->left), altura(x->right))+1;
+    y->altura = max(altura(y->left), altura(y->right))+1;
+ 
+    
+    return y;
+}
+int getBalance(AutorPtr n)
+{
+    if (n == NULL)
+        return 0;
+    return altura(n->left) - altura(n->right);
+}
 void maxminpublic(int year) {
     int max, min, cpy;
     max = indice.maxano;
@@ -52,26 +98,54 @@ void inserirautor(char *str, int index) {
 }
 
 AutorPtr insert(char *str, AutorPtr a) {
-    Autor *p;
+      /* 1.  Perform the normal BST rotation */
+    int balance = getBalance(a);
+    if (a == NULL){
+        a=(Autor *) malloc(sizeof(Autor));
+        a->left=a->right=NULL;
+        a->nome=strdup(str);
+        a->altura = max(altura(a->left), altura(a->right)) + 1;
+        return a;
+    }else{
+        
+        if(strcmp(str,a->nome)!=0){
+    if (strcmp(str,a->nome)<0){
+        a->left  = insert(str,a->left);}
+    else{
+        a->right = insert(str,a->right);}
+ 
+    /* 2. Update altura of this ancestor node */
     
-    p = NULL;
-    if (a == NULL) {
-        p = (Autor *) malloc(sizeof (Autor));
-        p->nome = strdup(str);
-        p->left = NULL;
-        p->right = NULL;
-        p->altura = 1;
-        a = p;
-    } else {
-        if (strcmp(str, a->nome) != 0) {
-            if (strcmp(str, a->nome) < 0) {
-                a->left = insert(str, a->left);
-            } else {
-                a->right = insert(str, a->right);
-            }
-        }
+ 
+    /* 3. Get the balance factor of this ancestor node to check whether
+       this node became unbalanced */
+    
+ 
+   
+ 
+    
+    if (balance > 1 && strcmp(str,a->left->nome)<0){
+        a=rightRotate(a);
+    }else{
+    
+    if (balance < -1 && strcmp(str,a->right->nome)>0){
+        a=leftRotate(a);
+ 
     }
+    if (balance > 1 && strcmp(str,a->left->nome)>0)
+    {
+        a->left =  leftRotate(a->left);
+        a=rightRotate(a);
+    }else{
+ 
     
+    if (balance < -1 && strcmp(str,a->right->nome)<0)
+    {
+        a->right = rightRotate(a->right);
+        a=leftRotate(a);
+    }
+    }}}}
+    /* return the (unchanged) node pointer */
     return a;
 }
 

@@ -18,38 +18,54 @@
  * 
  */
 #define MAX 40
+typedef struct stack{
+    char *str;
+    struct stack *next;
+}Node,*Stack;
 
+Stack push(Stack s,char *str){
+    Node *m;
+    
+    m=NULL;
+    if(s==NULL){
+        m=(Node *) malloc(sizeof(Node));
+        m->str=strdup(str);
+        m->next=NULL;
+        
+        
+    }else{
+        m=(Node *) malloc(sizeof(Node));
+        m->str=strdup(str);
+        m->next=s;
+        
+    }
+    return m;
+}
+void print(AutorPtr a) {
+
+    char op;
+    op = '0';
+
+    if (a != NULL) {
+        
+        print(a->left);    
+        printf("%s\n",a->nome);
+
+            
+
+            print(a->right);
+       
+        }
+
+    
+
+}
 void printautor(int index) {
     AutorPtr a, *autor;
     autor = getlista();
     a = autor[index];
-    print(a,0);
+    print(a);
 }
-
-void print(AutorPtr a, int n) {
-    
-    char op;
-    op = '0';
-    
-    if (a != NULL ) {
-        if(n!=10){
-            printf("%s\n",a->nome);
-            
-            print(a->left,n+1);
-            
-            print(a->right,n+1);
-        }else{
-            printf("Quer imprimir mais?\n");
-            scanf("%c",&op);
-            if(op=='S'){
-                print(a,0);
-            }
-        }
-    
-    }
-
-}
-
 void printletra(char c) {
 
     int index;
@@ -69,12 +85,21 @@ void printletra(char c) {
     printautor(index);
 }
 
-void printstats(int year, Stats s) {
 
+
+
+void printstats(int year, Stats s) {
+    int i;
     if (s != NULL) {
         if (year == s->ano) {
             printf("Ano: %d\n", s->ano);
             printf("Nº de publicacoes: %d\n", s->npublics);
+            for (i = 0; i < 41; i++) {
+                if (s->coautores[i] != 0) {
+                    if(i==0){printf("A solo: %d\n",s->coautores[i]);}else{
+					printf("Com %d coautor(s): %d publicacoes\n", i, s->coautores[i]);}
+                }
+            }
         } else {
             if (year < s->ano) {
                 printstats(year, s->left);
@@ -91,19 +116,30 @@ void printano(int year) {
     s = getStats();
     printstats(year, s);
 }
+void printstack(Stack s){
+    while(s!=NULL){
+        printf("%s\n",s->str);
+        s=s->next;
+    }
+}
+Stack s;
 
 int menu() {
 
     int r, i;
+    int index;
+    char l;
     char filename[40];
     char *linha;
     char letra;
     int max, min, npublics, nomes;
-
     int op;
-
+    AutorPtr a,*autor;
+    char *str;
+    s=NULL;
     r = 1;
     i = 0;
+    autor=NULL;
     letra = '0';
     max = min = npublics = nomes = 0;
     printf("Bem Vindo ao GESTAUTS\n");
@@ -170,15 +206,13 @@ int menu() {
                 max = getMaxAno();
                 min = getMinAno();
                 if (max == 0 && min == 0) {
-                    printf("Por favor faça leitura do ficheiro primeiro\n");
+                    printf("Por favor faça leitura de um ficheiro primeiro\n");
+                    break;
                 } else {
                     printf("Insira a letra: ");
                     if (scanf("%c", &letra) > 0) {
                         printletra(letra);
-
                     }
-                }
-
                 r = 1;
                 break;
             }
@@ -189,7 +223,7 @@ int menu() {
             }
         }
 
-    }
+        }}
     return r;
 
 }
