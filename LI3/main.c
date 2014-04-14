@@ -18,29 +18,9 @@
  * 
  */
 #define MAX 40
-typedef struct stack{
-    char *str;
-    struct stack *next;
-}Node,*Stack;
 
-Stack push(Stack s,char *str){
-    Node *m;
-    
-    m=NULL;
-    if(s==NULL){
-        m=(Node *) malloc(sizeof(Node));
-        m->str=strdup(str);
-        m->next=NULL;
-        
-        
-    }else{
-        m=(Node *) malloc(sizeof(Node));
-        m->str=strdup(str);
-        m->next=s;
-        
-    }
-    return m;
-}
+
+
 void print(AutorPtr a) {
 
     char op;
