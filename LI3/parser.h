@@ -12,7 +12,7 @@
 
 char *newline(char *str);
 char *strdup(const char *str);
-char *tiraespacos(char *str);
+char *trim(char *str);
 int parser_file(char *str);
 int numind(char *str);
 void reset_index();

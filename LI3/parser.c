@@ -34,15 +34,26 @@ int startspace (char *str){
     }
     return r;
 }
-char *tiraespacos(char *str){
-    int i;
-    while(startspace(str)!=0){
-        for(i=0;str[i]!='\0';i++){
-            str[i]=str[i+1];
+char *trim(char *str)
+{
+    
+    int i,j,k;
+    i=j=k=0;
+    for(i=0;str[i]!='\0';i++){
+        if(str[0]==' '){
+            for(j=i;str[j]!='\0';j++){
+                str[j]=str[j+1];
+            }
+            i=0;
+        }if(str[i]==' ' && str[i+1]==' '){
+            k=i;
+            for(j=i;str[j]!='\0';j++){
+                str[j]=str[j+1];
+            }
+           i=k; 
         }
-    
+        
     }
-    
     return str;
 }
 int numind(char *str){
@@ -56,7 +67,7 @@ int numind(char *str){
     return r;
 }
 void tratar_public(char *line){
-    char *str;
+    char *str,*space;
     int c;
     
     int i,n,ano,nomes,coautores;
@@ -65,11 +76,11 @@ void tratar_public(char *line){
     
     ano=nomes=coautores=0;
     
-    
+    str=space=NULL;
     str=strtok(line,",");
     n=1;
     while(str!=NULL){
-    str=tiraespacos(str);
+    space=trim(str);
     
     if(numind(str)==1){
         ano=atoi(str);
@@ -133,7 +144,7 @@ int parser_file(char *str) {
             linha[i]='\0';
             tratar_public(linha);
             
-         
+            
          nlinhas++;
          
         i=0;

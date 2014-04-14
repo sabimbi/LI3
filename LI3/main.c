@@ -20,11 +20,9 @@
 #define MAX 40
 
 
-
 void print(AutorPtr a) {
 
-    char op;
-    op = '0';
+ 
 
     if (a != NULL) {
         
@@ -76,8 +74,8 @@ void printstats(int year, Stats s) {
             printf("Nº de publicacoes: %d\n", s->npublics);
             for (i = 0; i < 41; i++) {
                 if (s->coautores[i] != 0) {
-                    if(i==0){printf("A solo: %d\n",s->coautores[i]);}else{
-					printf("Com %d coautor(s): %d publicacoes\n", i, s->coautores[i]);}
+                    if(i==0){printf("A solo: %d\n",s->coautores[0]);}else{
+                    printf("Com %d coautor(s): %d publicacoes\n", i, s->coautores[i]);}
                 }
             }
         } else {
@@ -90,36 +88,28 @@ void printstats(int year, Stats s) {
     }
 
 }
-
 void printano(int year) {
     Stats s;
     s = getStats();
     printstats(year, s);
 }
-void printstack(Stack s){
-    while(s!=NULL){
-        printf("%s\n",s->str);
-        s=s->next;
-    }
-}
-Stack s;
+
 
 int menu() {
 
     int r, i;
-    int index;
-    char l;
+
+   
     char filename[40];
     char *linha;
     char letra;
     int max, min, npublics, nomes;
     int op;
-    AutorPtr a,*autor;
-    char *str;
-    s=NULL;
+   
+    
     r = 1;
     i = 0;
-    autor=NULL;
+    
     letra = '0';
     max = min = npublics = nomes = 0;
     printf("Bem Vindo ao GESTAUTS\n");
