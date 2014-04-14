@@ -1,5 +1,5 @@
 Progresso ate agora:
 1º modulo feito(indice de autores)
 2º  modulo feito(estatisticas)
-3º Modulo(Inserçao de ramos repetidos incrementa no numero de publicações- falta implementar a inserção de autores na hashtable para evitar colisoes- Ideia: ao inserir ramos, mandar os hash dos dois autores e as suas respectivas strings, ver depois isso)
+3º Modulo(Adicionadas funções para consulta e manipulação de grafos - Ideia: ao inserir ramos, mandar os hash dos dois autores e as suas respectivas strings, ver depois isso)
 
