@@ -75,9 +75,11 @@ void tratar_public(char *line){
     
     
     ano=nomes=coautores=0;
-    
+   
     str=space=NULL;
+    
     str=strtok(line,",");
+    
     n=1;
     while(str!=NULL){
     space=trim(str);
@@ -93,7 +95,7 @@ void tratar_public(char *line){
        
         c=str[0];
         i=(int)c;
-        inserirautor(str,i);
+        inserirautor(space,i);
         
         
         nomes++;
@@ -143,7 +145,7 @@ int parser_file(char *str) {
             i--;
             linha[i]='\0';
             tratar_public(linha);
-            
+            inserircatalogo(linha);
             
          nlinhas++;
          

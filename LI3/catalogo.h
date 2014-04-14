@@ -16,15 +16,20 @@ int publics;
 
 typedef Node * Adj;
 typedef Adj  * Grafo;
+typedef struct listautores{
+    char *str;
+    Grafo *g;
+    struct listautores *next;
+}Elemento,*Lista;
 typedef struct catalogo{
     int ano;
-    int size;
-    Grafo *g;
+    Lista list[200];   
 }Catalogo;
 
 typedef struct catalogoautores{
-    Catalogo lista[60];
+    Catalogo lista[100];
 }CatalogoAutores;
+void inserircatalogo(char *str);
 Grafo   add_ramo(Grafo g , int v1,int v2);
 int procuraradj(Adj l,int v);
 Adj ins_lista_adjacentes (Adj l , int v);
