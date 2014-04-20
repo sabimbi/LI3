@@ -15,6 +15,21 @@ void reset_catalogo(){
         }
     }
 }
+void inserirautores(char **autores,int size){
+    int ano,a,b,index;
+    int i,j;
+    Lista l=NULL;
+    Grafo g=NULL;
+    a=b=index=0;
+    ano=atoi(autores[size-1]);
+    for(i=0;i<size-1;i++){
+        
+        for(j=0;j<size-1;j++){
+            if(j!=i){
+               
+        }
+    }
+    }}
 void inserircatalogo(char *linha){
   char ** array  = NULL;
   char *cpy=strdup(linha);
@@ -45,9 +60,10 @@ array[i] = 0;
 for(ano=0;ano<i;ano++){
     printf("%s\n",array[ano]);
 }
-    
+inserirautores(array,i);
 
 }
+
 Adj ins_lista_adjacentes (Adj l , int v)
 { Adj a;
 if(procuraradj(l,v)==1){

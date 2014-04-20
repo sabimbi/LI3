@@ -18,7 +18,7 @@ typedef Node * Adj;
 typedef Adj  * Grafo;
 typedef struct listautores{
     char *str;
-    Grafo *g;
+    Grafo g[100];
     struct listautores *next;
 }Elemento,*Lista;
 typedef struct catalogo{
