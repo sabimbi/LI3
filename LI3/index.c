@@ -8,7 +8,7 @@
 
 static AutorPtr lista[27];
 static Indiceautores indice;
-
+static LenAutor len[27];
 int altura(AutorPtr a)
 {
     if (a == NULL)
@@ -18,6 +18,10 @@ int altura(AutorPtr a)
 int max(int a, int b)
 {
     return (a > b)? a : b;
+}
+int min(int a, int b)
+{
+    return (a > b)? b : a;
 }
 AutorPtr rightRotate(AutorPtr y)
 {
@@ -81,29 +85,46 @@ void reset_lista() {
         lista[i] = NULL;
     }
 }
-
+void reset_length() {
+    int i;
+    for (i = 0; i < 27; i++) {
+        len[i].max=0;
+                len[i].min=0;
+                len[i].total=0;
+                len[i].totalchars=0;
+        len[i].media=0.0;
+    }
+}
 void inserirautor(char *str, int index) {
     AutorPtr p;
-
+    
     if (index < 0) {
         p = lista[26];
+        
+        
         p = insert(str, p);
         lista[26] = p;
+        
     } else {
         index = -65 + index;
         p = lista[index];
         p = insert(str, p);
         lista[index] = p;
+        
+        
     }
 }
 
 AutorPtr insert(char *str, AutorPtr a) {
       /* 1.  Perform the normal BST rotation */
+    
     int balance = getBalance(a);
     if (a == NULL){
         a=(Autor *) malloc(sizeof(Autor));
         a->left=a->right=NULL;
         a->nome=strdup(str);
+        a->len=strlen(str);
+        
         a->altura = max(altura(a->left), altura(a->right)) + 1;
         return a;
     }else{
@@ -148,7 +169,49 @@ AutorPtr insert(char *str, AutorPtr a) {
     /* return the (unchanged) node pointer */
     return a;
 }
+int maxchar(AutorPtr a){
+    int r;
+    if(a==NULL){
+        r=0;
+    }
+    if(a->left==NULL && a->right==NULL){
+        r=a->len;
+    }else{
+        r=max(maxchar(a->left),maxchar(a->right));
+    }
+    return r;
+}
+int minchar(AutorPtr a){
+    int r;
+    if(a->left==NULL && a->right==NULL){
+        r=a->len;
+    }else{
+        r=min(maxchar(a->left),maxchar(a->right));
+    }
+    return r;
+}
+int contachars(AutorPtr a){
+    int r;
 
+    if(a==NULL){
+        r=0;
+    }else{
+        
+        r=a->len+contachars(a->left)+contachars(a->right);
+    }
+    return r;
+}
+int contautores(AutorPtr a){
+    int r;
+    
+    if(a==NULL){
+        r=0;
+    }else{
+        
+        r=1+contautores(a->left)+contautores(a->right);
+    }
+    return r;
+}
 int procurar(char *str) {
     int index;
     int flag;
@@ -175,10 +238,15 @@ int procurar(char *str) {
     return flag;
 }
 
-AutorPtr* getlista() {
-    return lista;
+AutorPtr getlista(int index) {
+    return lista[index];
 }
-
+void setTotal(int total,int index){
+    len[index].total=total;
+}
+LenAutor *getLen(){
+    return len;
+}
 int getMaxAno() {
     return indice.maxano;
 }

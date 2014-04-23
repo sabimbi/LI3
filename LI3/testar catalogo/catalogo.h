@@ -11,27 +11,29 @@
 typedef struct node 
 { int v;
 int publics;
+char *autor;
   struct node * next;
 } Node;
 
 typedef Node * Adj;
 typedef Adj  * Grafo;
 typedef struct listautores{
-    char *str;
-    Grafo g[100];
+    char *autor;
+    Grafo grafo[100];
     struct listautores *next;
 }Elemento,*Lista;
 typedef struct catalogo{
     int ano;
     Lista list[200];   
-}Catalogo;
+}Catalogo,*CatalogoPtr;
 
 typedef struct catalogoautores{
-    Catalogo lista[100];
+    CatalogoPtr lista[100];
 }CatalogoAutores;
 void inserircatalogo(char *str);
-Grafo   add_ramo(Grafo g , int v1,int v2);
+int hash(char *str);
+Grafo   add_ramo(Grafo g , int v1,int v2,char *str);
 int procuraradj(Adj l,int v);
-Adj ins_lista_adjacentes (Adj l , int v);
+Adj ins_lista_adjacentes (Adj l , int v,char *str);
 #endif	/* CATALOGO_H */
 

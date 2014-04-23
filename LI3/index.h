@@ -10,10 +10,16 @@
 typedef struct autor{
     char *nome;
     int altura;
-    
+    int len;
   struct autor *left,*right;    
 }Autor,*AutorPtr;
-
+typedef struct lengthautor{
+    int max;
+    int min;
+    double media;
+    int total;
+    int totalchars;
+}LenAutor;
 
 
 typedef struct indiceautores{
@@ -25,18 +31,23 @@ typedef struct indiceautores{
 int height(AutorPtr a);
 int max(int a,int b);
 void maxminpublic(int year);
-
+int min(int a,int b);
 AutorPtr insert(char *str,AutorPtr a);
-
+int maxchar(AutorPtr a);
+int minchar(AutorPtr a);
+int contachars(AutorPtr a);
+int contautores(AutorPtr a);
+void setTotal(int total,int index);
 int getMaxAno();
 int getMinAno();
 int getNPublics();
 int getNomes();
 void inserirautor(char *str,int index);
 void reset_lista();
-
+void reset_length();
 int procurar(char *str);
-AutorPtr *getlista();
+AutorPtr getlista(int index);
+LenAutor *getLen();
 int getMaxAno();
 int getMinAno();
 int getNPublics();

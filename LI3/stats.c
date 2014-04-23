@@ -37,7 +37,7 @@ Stats inserir(int year,Stats a,int numautores,int coautores){
         if(year==a->ano){
             a->nautores+=numautores;
             a->npublics++;
-            a->coautores[coautores]+=1;
+            a->coautores[coautores]++;
     }else{
             if(year<a->ano){
                 a->left=inserir(year,a->left,numautores,coautores);
