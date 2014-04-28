@@ -8,6 +8,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 static AutorPtr aux;
+static AutorPtr auxautor;
+
 void printpublics(CatalogoPtr c,char *autor){
     int i;
     char op;
@@ -18,10 +20,16 @@ void printpublics(CatalogoPtr c,char *autor){
             minano=getMinAno();
             for(i=minano,op='S';i<=maxano&& op=='S';i++){
                 
-                printf("Ano: %d\nNr Publics: %d\n",i,c->npublics[i-1950]);
+                printf("Ano: %d Nr Publics: %d\n",i,c->npublics[i-1950]);
                 printf("Proximo?: ");
-                scanf("%c",&op);
-                getchar();
+                if(scanf("%c",&op)>0){
+                getchar();}
+            }
+        }else{
+            if(strcmp(autor,c->nome)<0){
+                printpublics(c->left,autor);
+            }else{
+                printpublics(c->right,autor);
             }
         }
     }
@@ -76,13 +84,13 @@ void print(AutorPtr a) {
             printaux(aux);
             printf("Proximo? 1 -Sim 0 - Nao\n");
             printf("Opção: ");
-            scanf("%d",&op);
+            if(scanf("%d",&op)>0){
             getchar();
             if(op==1){
                 aux=NULL;
                 print(a);
             }
-        }
+            }}
         
 }
 }
@@ -173,7 +181,29 @@ int getPublics(int year, Stats s) {
     }
     return n;
 }
-
+void listarcatalogo(CatalogoPtr c){
+    int i=0,r=0;
+    if (c != NULL) {
+       listarcatalogo(c->left);
+       for(i=0;i<100 && r==0;i++){
+           if(c->npublics[i]==0){
+               r=1;
+           }
+       } 
+       if(r==0){
+           auxautor=inseriraux(auxautor,c->nome);
+       }
+       listarcatalogo(c->right);
+      
+}
+}
+int nautoresasolo(){
+    
+    CatalogoPtr c=NULL;
+    c=getCatalogo();
+   
+    return (countsolo(c));
+}
 int query1() {
     int maxano, minano, npublics, nomes;
     
@@ -227,9 +257,9 @@ op='S';
 
             printstats(i, stats);
             printf("Proximo?: ");
-            scanf("%c",&op);
+            if(scanf("%c",&op)>0){;
             getchar();
-        }
+            }}
     }
     return 1;
 }
@@ -313,9 +343,29 @@ int query7(){
                 
 }
 int query8(){
+    char filename[40],*linha=NULL;
+    
+    
+    
+    
+   CoautorPtr l=NULL; 
+    printf("Autor: ");
+    if(fgets(filename,40,stdin)!=NULL){
+        linha=newline(filename);
+    }
+    l=getCoaut(linha);
+    l=createcoaux(l);
+    printcoaux(l);
+    
     return 1;
 }
 int query9(){
+    CatalogoPtr m;
+    
+    m=getCatalogo();
+    auxautor=NULL;
+    listarcatalogo(m);
+    printf("%d\n",size(auxautor));
     return 1;
 }
 int query10(){
@@ -404,6 +454,7 @@ int query13(){
     percentagem=(double)npublics/publics;
     percentagem=percentagem*100;
     printf("Percentagem relativa ao nr publicações de %d: %f\n",ano,percentagem);
+   
     
     }
     return 1;

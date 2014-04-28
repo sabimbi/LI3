@@ -6,10 +6,18 @@
 #include"parser.h"
 #include<ctype.h>
 static CatalogoPtr indice;
+void printcoaux(CoautorPtr c){
+    if(c!=NULL){
+        printcoaux(c->left);
+        printf("Coautor:%s Nr Publics:%d\n",c->nome,c->npublics);
+        printcoaux(c->right);
+    }
+}
 void reset_catalogo(){
     indice=NULL;
     
 }
+
 int tamanho(CoautorPtr c){
     int r;
     if(c==NULL){
@@ -38,12 +46,7 @@ int countsolo(CatalogoPtr c){
     }
     return r;
 }
-int nautoresasolo(){
-    
-    
-   
-    return (countsolo(indice));
-}
+
 CatalogoPtr updatepublics(CatalogoPtr c,char *autor,int ano){
     
     int r=0,n=0,index=0;
@@ -67,22 +70,38 @@ CatalogoPtr updatepublics(CatalogoPtr c,char *autor,int ano){
     }
     return c;
 }
+
 CoautorPtr getCoautor(CatalogoPtr c,char *autor){
     CoautorPtr l=NULL;
-    int r=0;
-    while(c!=NULL && r==0){
+    
+    if(c!=NULL){
         if(strcmp(autor,c->nome)==0){
             l=c->coautores;
-            r=1;
+            
         }else{
             if(strcmp(autor,c->nome)<0){
-                c=c->left;
+                l=getCoautor(c->left,autor);
             }else{
-                c=c->right;
+                l=getCoautor(c->right,autor);
             }
         }
     }
   return l;  
+}
+CoautorPtr createcoaux(CoautorPtr c){
+    Coautor *p=NULL;
+    if(c!=NULL){
+        if(c->npublics>=1){
+            p=(Coautor *) malloc(sizeof(Coautor));
+            p->npublics=c->npublics;
+            p->left=createcoaux(c->left);
+            p->right=createcoaux(c->right);
+        }
+    }
+    return p;
+}
+CoautorPtr getCoaut(char *autor){
+    return(getCoautor(indice,autor));
 }
 CatalogoPtr copiarindice(CatalogoPtr c){
     Catalogo *m=NULL;
@@ -97,7 +116,6 @@ CatalogoPtr copiarindice(CatalogoPtr c){
     return m;
 }
 CatalogoPtr getCatalogo(){
-    
     return indice;
 }
 

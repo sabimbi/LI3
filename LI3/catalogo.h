@@ -20,6 +20,10 @@ typedef struct catalogo{
     
     struct catalogo *left,*right;
 }Catalogo,*CatalogoPtr;
+CatalogoPtr copiarindice(CatalogoPtr c);
+void printcoaux(CoautorPtr c);
+CoautorPtr createcoaux(CoautorPtr c);
+CoautorPtr getCoaut(char *autor);
 CatalogoPtr updatepublics(CatalogoPtr c,char *autor,int ano);
 int countsolo(CatalogoPtr c);
 int tamanho(CoautorPtr c);
@@ -33,6 +37,7 @@ void inserircatalogo(char *linha);
 int eautor(char *str);
 int search(CatalogoPtr c,char *autor);
 CatalogoPtr getCatalogo();
+CoautorPtr getCoautores(char* autor);
 void printpublics(CatalogoPtr c, char* autor);
 int npublics(CatalogoPtr c,CoautorPtr l,char *autor,int ano);
 int npublicsem(CatalogoPtr c,char *autor,int ano);

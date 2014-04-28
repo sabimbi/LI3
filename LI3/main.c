@@ -28,6 +28,8 @@ int menu() {
     printf("5 - Dado um autor, criar uma tabela com o número de artigos publicados ano a ano (para anos em que não publicou a entrada deverá ficar a 0)\n");
     printf("6 - Listar autores que começam pela letra inserida\n");
     printf("7 - Nr de Publicações num intervalo de anos\n");
+    printf("8 - Dado um nome de um autor, determinar o nome ou nomes dos co-autores com quem mais publicou\n");
+    printf("9 - Dado um intervalo fechado de anos, determinar a lista de nomes dos autores que publicaram em todos esses anos;\n");
     printf("10 - Determinar, para um dado ano, uma tabela que contenha o número total depublicações de 1, 2, ou 3 autores; Tal tabela deverá ser guardada num ficheiro de nome dado e também apresentada em ecrã ao utilizador\n");
     printf("11 - Criar ficheiro com uma tabela com os anos,autores e respectivos numero de publicações por nr de autores\n");
     printf("13 - Dado um nome de autor e um ano, determinar a sua percentagem de publicações relativamente ao total de publicações desse ano\n");
