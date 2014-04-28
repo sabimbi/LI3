@@ -14,8 +14,9 @@ typedef struct autor{
   struct autor *left,*right;    
 }Autor,*AutorPtr;
 typedef struct lengthautor{
-    int max;
-    int min;
+    char max[1024];
+    char min[1024];
+    int maxchar,minchar;
     double media;
     int total;
     int totalchars;
@@ -42,12 +43,15 @@ int getMaxAno();
 int getMinAno();
 int getNPublics();
 int getNomes();
+char *getMaxLen();
+char *getMinLen();
+int getMedia();
 void inserirautor(char *str,int index);
 void reset_lista();
 void reset_length();
 int procurar(char *str);
 AutorPtr getlista(int index);
-LenAutor *getLen();
+LenAutor getLen();
 int getMaxAno();
 int getMinAno();
 int getNPublics();

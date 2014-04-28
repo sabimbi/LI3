@@ -6,7 +6,7 @@
 #include"parser.h"
 #include"index.h"
 #include"stats.h"
-
+#include"catalogo.h"
 
 
 char *strdup(const char *str)
@@ -67,7 +67,7 @@ int numind(char *str){
     return r;
 }
 void tratar_public(char *line){
-    char *str,*space;
+    char *str,*space,*linha;
     int c;
     
     int i,n,ano,nomes,coautores;
@@ -76,9 +76,12 @@ void tratar_public(char *line){
     
     ano=nomes=coautores=0;
    
-    str=space=NULL;
+    str=space=linha=NULL;
+    linha=strdup(line);
+    inserircatalogo(linha);
     
     str=strtok(line,",");
+    
     
     n=0;
     while(str!=NULL){
@@ -106,6 +109,7 @@ void tratar_public(char *line){
     
     
     }
+    
     setNomes(nomes);
 }
 
@@ -128,8 +132,7 @@ int parser_file(char *str) {
     int r=0;
     int nlinhas=0;
     char c;
-    LenAutor *l=NULL;
-    AutorPtr a=NULL;
+    
     linha=(char *) malloc(1024*sizeof(char));
     fp = fopen(str, "r");
     if(fp==NULL){
@@ -159,11 +162,11 @@ int parser_file(char *str) {
     r=1;
     setPublics(nlinhas);
     }
-    l=getLen();
-    a=getlista(0);
+ 
     
     
     return r;
 
 }
+
 

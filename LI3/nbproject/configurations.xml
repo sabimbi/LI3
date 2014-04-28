@@ -7,6 +7,8 @@
       <in>index.c</in>
       <in>main.c</in>
       <in>parser.c</in>
+      <in>queries.c</in>
+      <in>queries.h</in>
       <in>stats.c</in>
     </df>
     <logicalFolder name="ExternalFiles"
@@ -47,6 +49,10 @@
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="parser.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="queries.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="queries.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="stats.c" ex="false" tool="0" flavor2="0">
       </item>

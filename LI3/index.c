@@ -8,7 +8,8 @@
 
 static AutorPtr lista[27];
 static Indiceautores indice;
-static LenAutor len[27];
+static LenAutor len;
+
 int altura(AutorPtr a)
 {
     if (a == NULL)
@@ -61,6 +62,17 @@ int getBalance(AutorPtr n)
         return 0;
     return altura(n->left) - altura(n->right);
 }
+
+int getMedia(){
+    int media=(double)len.totalchars/len.total;
+    return(media);
+}
+char *getMaxLen(){
+    return len.max;
+}
+char *getMinLen(){
+    return len.min;
+}
 void maxminpublic(int year) {
     int max, min, cpy;
     max = indice.maxano;
@@ -84,16 +96,15 @@ void reset_lista() {
     for (i = 0; i < 27; i++) {
         lista[i] = NULL;
     }
+    
 }
 void reset_length() {
-    int i;
-    for (i = 0; i < 27; i++) {
-        len[i].max=0;
-                len[i].min=0;
-                len[i].total=0;
-                len[i].totalchars=0;
-        len[i].media=0.0;
-    }
+    
+    len.maxchar=0;
+    len.media=0.0;
+    len.minchar=4000;
+    len.total=len.totalchars=0;
+    
 }
 void inserirautor(char *str, int index) {
     AutorPtr p;
@@ -117,14 +128,37 @@ void inserirautor(char *str, int index) {
 
 AutorPtr insert(char *str, AutorPtr a) {
       /* 1.  Perform the normal BST rotation */
-    
+    int maxlen,minlen;
+   
     int balance = getBalance(a);
+    maxlen = len.maxchar;
+    minlen = len.minchar;
+    
+    
+    
     if (a == NULL){
         a=(Autor *) malloc(sizeof(Autor));
         a->left=a->right=NULL;
         a->nome=strdup(str);
         a->len=strlen(str);
         
+        len.totalchars+=a->len;
+        len.total+=1;
+        
+        
+        if (a->len > maxlen) {
+            maxlen=a->len;
+            strcpy(len.max,a->nome);
+        
+    } else {
+        if (a->len < maxlen && a->len < minlen) {
+            minlen = a->len;
+            strcpy(len.min,a->nome);
+        }
+    }
+        
+        len.maxchar=maxlen;
+        len.minchar=minlen;
         a->altura = max(altura(a->left), altura(a->right)) + 1;
         return a;
     }else{
@@ -241,10 +275,8 @@ int procurar(char *str) {
 AutorPtr getlista(int index) {
     return lista[index];
 }
-void setTotal(int total,int index){
-    len[index].total=total;
-}
-LenAutor *getLen(){
+
+LenAutor getLen(){
     return len;
 }
 int getMaxAno() {

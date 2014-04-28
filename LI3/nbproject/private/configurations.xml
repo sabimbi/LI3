@@ -9,6 +9,8 @@
       <in>main.c</in>
       <in>parser.c</in>
       <in>parser.h</in>
+      <in>queries.c</in>
+      <in>queries.h</in>
       <in>stats.c</in>
       <in>stats.h</in>
     </df>
